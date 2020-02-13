@@ -1,39 +1,3 @@
-#!/bin/python3
-
-def validate_html(html):
-    '''
-    This function performs a limited version of html validation by checking whether every opening tag has a corresponding closing tag.
-
-    >>> validate_html('<strong>example</strong>')
-    True
-    >>> validate_html('<strong>example')
-    False
-    '''
-    s = []
-    balanced = False
-    for i in range(len(html)):
-        symbol = html[i]
-        if symbol == "<":
-            s.append(symbol)
-           else:
-            if l == []:
-                balanced = False
-            else:
-                top = s.pop()
-                if not _extract_tags(html):
-                    balanced = False
-            i += 1
-     if balanced and l == []:
-        return True
-    else:
-        return False
-    # HINT:
-    # use the _extract_tags function below to generate a list of html tags without any extra text;
-    # then process these html tags using the balanced parentheses algorithm from the book
-    # the main difference between your code and the book's code will be that you will have to keep track of not just the 3 types of parentheses,
-    # but arbitrary text located between the html tags
-
-
 def _extract_tags(html):
     '''
     This is a helper function for `validate_html`.
@@ -46,16 +10,38 @@ def _extract_tags(html):
     ['<strong>', '</strong>']
     '''
     list1 = []
-    for x in len(html):
+    for x in range(len(html)):
         if html[x] == "<":
             i = x
             html_tag = ""
-            html_tag += "<"
+            html_tag += ""
             while html[i] != ">":   #Run as long as the tag does not reach the closing tag
                 html_tag += html[i] #Append our tag by the letter inside the brackets
                 i += 1              #Increase i by one such that it runs its own loop without interfering with x
             html_tag += ">"         #If we reached the end of the while loop, we break
             list1.append(html_tag)  #Append our list with the entire tag
-  return list1
+    return list1
             
         
+def validate_html(html):
+    '''
+    This function performs a limited version of html validation by checking whether every opening tag has a corresponding closing tag.
+
+    >>> validate_html('<strong>example</strong>')
+    True
+    >>> validate_html('<strong>example')
+    False
+    '''
+    l1 = remover(html)
+    for x in l1:
+        if x in l1[1:]:
+            l1.remove(x)
+        else:
+            return False
+    return True
+def remover(html):
+    '''this is another helper function that i created to make spotting tags easier in practice, as it would simply remove the / in the beginning of the closing tab
+    and then runs the code normally.'''
+    tags_list = _extract_tags(html)
+    tags_list = [s.replace("/", "") for s in tags_list]
+    return tags_list
