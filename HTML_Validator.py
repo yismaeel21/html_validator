@@ -32,20 +32,19 @@ def validate_html(html):
     >>> validate_html('<strong>example')
     False
     '''
-    string = _extract_tags(html)
-    s = []
-    balanced = True
+    string = _extract_tags(html)   #Created a base list of strings that have the extracted tags
+    s = []                         #Empty list to pop in and out of
+    balanced = True                #Assumption that there is a balance in parenthesis unless otherwise
     
     for i in range(len(string)):
-        symbol = string[i]
-        if "/" not in symbol:
-            s.append(symbol)
+        symbol = string[i]         #setting a dummy variable to take o the value of the tag  
+        if "/" not in symbol:      #checking if symbol is a closer or an opener
+            s.append(symbol)       #appending the empty list
         else:
-            if s == []:
+            if s == []:            #if s is an empty list, its not balanced
                 balanced = False
             else:
-                top = s.pop()
-                
+                top = s.pop()      
                 if top[1:]!=symbol[2:]:
                     balanced = False
 
