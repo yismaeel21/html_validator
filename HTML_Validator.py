@@ -32,11 +32,12 @@ def validate_html(html):
     >>> validate_html('<strong>example')
     False
     '''
+    string = _extract_tags(html)
     s = []
-    balanced = False
+    balanced = True
     
-    for i in range(len(html)):
-        symbol = html[i]
+    for i in range(len(string)):
+        symbol = string[i]
         if "/" not in symbol:
             s.append(symbol)
         else:
@@ -44,9 +45,10 @@ def validate_html(html):
                 balanced = False
             else:
                 top = s.pop()
-                if top[2:]!=symbol[1:]:
+                
+                if top[1:]!=symbol[2:]:
                     balanced = False
-            i += 1
+
     if balanced and s == []:
         return True
     else:
