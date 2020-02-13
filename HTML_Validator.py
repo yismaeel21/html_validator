@@ -1,6 +1,5 @@
 #!/bin/python3
 
-
 def validate_html(html):
     '''
     This function performs a limited version of html validation by checking whether every opening tag has a corresponding closing tag.
@@ -10,7 +9,24 @@ def validate_html(html):
     >>> validate_html('<strong>example')
     False
     '''
-
+    s = []
+    balanced = False
+    for i in range(len(html)):
+        symbol = html[i]
+        if symbol == "<":
+            s.append(symbol)
+           else:
+            if l == []:
+                balanced = False
+            else:
+                top = s.pop()
+                if not _extract_tags(html):
+                    balanced = False
+            i += 1
+     if balanced and l == []:
+        return True
+    else:
+        return False
     # HINT:
     # use the _extract_tags function below to generate a list of html tags without any extra text;
     # then process these html tags using the balanced parentheses algorithm from the book
@@ -29,3 +45,17 @@ def _extract_tags(html):
     >>> _extract_tags('Python <strong>rocks</strong>!')
     ['<strong>', '</strong>']
     '''
+    list1 = []
+    for x in len(html):
+        if html[x] == "<":
+            i = x
+            html_tag = ""
+            html_tag += "<"
+            while html[i] != ">":   #Run as long as the tag does not reach the closing tag
+                html_tag += html[i] #Append our tag by the letter inside the brackets
+                i += 1              #Increase i by one such that it runs its own loop without interfering with x
+            html_tag += ">"         #If we reached the end of the while loop, we break
+            list1.append(html_tag)  #Append our list with the entire tag
+  return list1
+            
+        
