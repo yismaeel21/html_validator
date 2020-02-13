@@ -1,4 +1,4 @@
-(https://travis-ci.org/yismaeel21/html_validator.svg?branch=master)
+[](https://travis-ci.org/yismaeel21/html_validator.svg?branch=master)
 
 def _extract_tags(html):
     '''
